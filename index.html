@@ -1,0 +1,799 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ilustre Juninho – Soluções Digitais</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --deep: #0A0A1A;
+  --navy: #0D0D2B;
+  --mid: #12123A;
+  --card: rgba(255,255,255,0.05);
+  --border: rgba(255,255,255,0.08);
+  --grad: linear-gradient(135deg, #7B2FBE 0%, #C2185B 50%, #FF6F2F 100%);
+  --grad2: linear-gradient(135deg, #5B21B6 0%, #9C27B0 100%);
+  --accent: #B040FF;
+  --pink: #E040A0;
+  --orange: #FF7043;
+  --text: rgba(255,255,255,0.88);
+  --muted: rgba(255,255,255,0.45);
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Inter', sans-serif;
+  background: var(--deep);
+  color: var(--text);
+  overflow-x: hidden;
+}
+
+/* ── PARTICLES BG ── */
+.particles {
+  position: fixed; inset: 0; z-index: 0; pointer-events: none; overflow: hidden;
+}
+.particle {
+  position: absolute; border-radius: 50%;
+  background: var(--accent); opacity: 0;
+  animation: float linear infinite;
+}
+@keyframes float {
+  0%   { opacity: 0; transform: translateY(0) scale(0); }
+  10%  { opacity: 0.6; }
+  90%  { opacity: 0.2; }
+  100% { opacity: 0; transform: translateY(-100vh) scale(1.5); }
+}
+
+/* ── NAV ── */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 20px 60px;
+  background: rgba(10,10,26,0.75);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--border);
+}
+.logo {
+  font-family: 'Syne', sans-serif;
+  font-size: 20px; font-weight: 800;
+  background: var(--grad); -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  letter-spacing: -0.01em;
+}
+.nav-links { display: flex; gap: 36px; }
+.nav-links a {
+  font-size: 13px; font-weight: 400; color: var(--muted);
+  text-decoration: none; letter-spacing: 0.04em;
+  transition: color 0.2s;
+}
+.nav-links a:hover { color: #fff; }
+.nav-btn {
+  background: var(--grad);
+  color: #fff; border: none;
+  padding: 11px 26px; border-radius: 30px;
+  font-size: 13px; font-weight: 600; cursor: pointer;
+  text-decoration: none;
+  transition: opacity 0.2s, transform 0.2s;
+  box-shadow: 0 4px 20px rgba(176,64,255,0.35);
+}
+.nav-btn:hover { opacity: 0.85; transform: translateY(-1px); }
+
+/* ── HERO ── */
+.hero {
+  min-height: 100vh;
+  display: grid; grid-template-columns: 1fr 1fr;
+  align-items: center;
+  padding: 120px 60px 80px;
+  gap: 40px;
+  position: relative; z-index: 1;
+  overflow: hidden;
+}
+
+/* BG glow blobs */
+.hero::before {
+  content: '';
+  position: absolute; top: -100px; right: -150px;
+  width: 700px; height: 700px; border-radius: 50%;
+  background: radial-gradient(circle, rgba(123,47,190,0.25) 0%, transparent 65%);
+  pointer-events: none;
+}
+.hero::after {
+  content: '';
+  position: absolute; bottom: -100px; left: -100px;
+  width: 500px; height: 500px; border-radius: 50%;
+  background: radial-gradient(circle, rgba(224,64,160,0.15) 0%, transparent 65%);
+  pointer-events: none;
+}
+
+.hero-left { position: relative; z-index: 2; }
+
+.hero-badge {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: rgba(176,64,255,0.15);
+  border: 1px solid rgba(176,64,255,0.35);
+  padding: 7px 16px; border-radius: 30px;
+  font-size: 12px; color: #D580FF; letter-spacing: 0.08em;
+  margin-bottom: 28px;
+}
+.hero-badge::before { content: '✦'; }
+
+.hero h1 {
+  font-family: 'Syne', sans-serif;
+  font-size: clamp(40px, 5.5vw, 68px);
+  font-weight: 800; line-height: 1.08;
+  margin-bottom: 22px;
+}
+.hero h1 span {
+  background: var(--grad); -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+}
+
+.hero p {
+  font-size: 16px; line-height: 1.75; color: var(--muted);
+  max-width: 460px; margin-bottom: 44px;
+}
+
+.hero-btns { display: flex; gap: 14px; flex-wrap: wrap; }
+.btn-grad {
+  background: var(--grad);
+  color: #fff; padding: 16px 36px; border-radius: 30px;
+  font-size: 15px; font-weight: 600; text-decoration: none;
+  box-shadow: 0 8px 28px rgba(176,64,255,0.4);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+.btn-grad:hover { transform: translateY(-2px); box-shadow: 0 12px 36px rgba(176,64,255,0.55); }
+.btn-outline {
+  border: 1px solid var(--border);
+  color: var(--text); padding: 16px 36px; border-radius: 30px;
+  font-size: 15px; font-weight: 400; text-decoration: none;
+  backdrop-filter: blur(8px);
+  background: rgba(255,255,255,0.04);
+  transition: border-color 0.2s, background 0.2s;
+}
+.btn-outline:hover { border-color: rgba(176,64,255,0.5); background: rgba(176,64,255,0.08); }
+
+/* HERO RIGHT – 3D scene */
+.hero-right {
+  position: relative; z-index: 2;
+  display: flex; align-items: center; justify-content: center;
+  height: 480px;
+}
+.scene {
+  position: relative; width: 360px; height: 380px;
+}
+
+/* Glow circle behind */
+.scene-glow {
+  position: absolute; top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  width: 300px; height: 300px; border-radius: 50%;
+  background: radial-gradient(circle, rgba(123,47,190,0.4) 0%, transparent 70%);
+}
+
+/* Main mockup phone */
+.phone-mockup {
+  position: absolute; top: 10px; left: 50%; transform: translateX(-50%);
+  width: 175px;
+  background: #1A1A3E;
+  border-radius: 32px;
+  border: 2px solid rgba(176,64,255,0.35);
+  overflow: hidden;
+  box-shadow: 0 24px 60px rgba(0,0,0,0.5), 0 0 60px rgba(123,47,190,0.3);
+  z-index: 3;
+  animation: hover1 4s ease-in-out infinite;
+}
+@keyframes hover1 { 0%,100%{transform:translateX(-50%) translateY(0)} 50%{transform:translateX(-50%) translateY(-12px)} }
+
+.phone-notch {
+  width: 60px; height: 18px; background: #0A0A1A;
+  border-radius: 0 0 14px 14px; margin: 0 auto 0;
+}
+.phone-header {
+  background: var(--grad2);
+  padding: 14px 16px 20px;
+  text-align: center;
+}
+.phone-avatar {
+  width: 48px; height: 48px; border-radius: 50%;
+  background: var(--grad);
+  border: 2px solid rgba(255,255,255,0.3);
+  margin: 0 auto 8px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 20px;
+}
+.phone-name { font-family: 'Syne', sans-serif; font-size: 11px; font-weight: 700; }
+.phone-sub { font-size: 8px; color: rgba(255,255,255,0.6); letter-spacing: 0.08em; margin-top: 2px; }
+.phone-body { padding: 12px 10px; }
+.phone-btn {
+  display: block;
+  background: var(--grad);
+  border-radius: 20px; padding: 7px;
+  font-size: 8px; text-align: center; font-weight: 600;
+  margin-bottom: 6px; color: #fff; letter-spacing: 0.04em;
+}
+.phone-btn.ghost {
+  background: transparent;
+  border: 1px solid rgba(176,64,255,0.4);
+  color: #D580FF;
+}
+.phone-btn.light {
+  background: rgba(255,255,255,0.06); color: rgba(255,255,255,0.7);
+}
+
+/* Floating cards */
+.float-card {
+  position: absolute;
+  background: rgba(255,255,255,0.07);
+  backdrop-filter: blur(14px);
+  border: 1px solid rgba(255,255,255,0.12);
+  border-radius: 14px;
+  padding: 12px 16px;
+  font-size: 11px; font-weight: 500;
+  color: #fff;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+}
+.float-card.c1 {
+  top: 20px; left: -30px;
+  animation: hover2 3.5s ease-in-out infinite;
+}
+.float-card.c2 {
+  bottom: 60px; right: -40px;
+  animation: hover3 4.5s ease-in-out infinite;
+}
+@keyframes hover2 { 0%,100%{transform:translateY(0) rotate(-3deg)} 50%{transform:translateY(-10px) rotate(-3deg)} }
+@keyframes hover3 { 0%,100%{transform:translateY(0) rotate(2deg)} 50%{transform:translateY(-8px) rotate(2deg)} }
+
+.float-card .fc-num { font-family: 'Syne', sans-serif; font-size: 22px; font-weight: 800; background: var(--grad); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+.float-card .fc-label { font-size: 10px; color: var(--muted); margin-top: 2px; }
+
+/* Deco plant */
+.deco-plant {
+  position: absolute; right: -20px; top: -20px;
+  font-size: 80px; opacity: 0.55;
+  filter: hue-rotate(30deg) saturate(1.4);
+  animation: sway 6s ease-in-out infinite;
+  transform-origin: bottom center;
+}
+@keyframes sway { 0%,100%{transform:rotate(-4deg)} 50%{transform:rotate(4deg)} }
+
+/* Stars */
+.star {
+  position: absolute; border-radius: 50%;
+  background: #fff; opacity: 0;
+  animation: twinkle ease-in-out infinite;
+}
+@keyframes twinkle { 0%,100%{opacity:0;transform:scale(0.5)} 50%{opacity:0.8;transform:scale(1)} }
+
+/* ── SERVICES ── */
+.services {
+  padding: 100px 60px;
+  position: relative; z-index: 1;
+}
+.section-head {
+  text-align: center; margin-bottom: 60px;
+}
+.section-chip {
+  display: inline-block;
+  background: rgba(176,64,255,0.15);
+  border: 1px solid rgba(176,64,255,0.3);
+  color: #D580FF; font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase;
+  padding: 6px 16px; border-radius: 20px; margin-bottom: 16px;
+}
+.section-head h2 {
+  font-family: 'Syne', sans-serif;
+  font-size: clamp(28px, 4vw, 46px); font-weight: 800;
+  line-height: 1.15;
+}
+.section-head h2 span { background: var(--grad); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+.section-head p { color: var(--muted); font-size: 15px; margin-top: 12px; max-width: 480px; margin-left: auto; margin-right: auto; line-height: 1.7; }
+
+.services-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px;
+}
+.svc-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  padding: 40px 32px;
+  position: relative; overflow: hidden;
+  transition: transform 0.3s, border-color 0.3s, box-shadow 0.3s;
+}
+.svc-card:hover {
+  transform: translateY(-6px);
+  border-color: rgba(176,64,255,0.35);
+  box-shadow: 0 16px 48px rgba(123,47,190,0.2);
+}
+.svc-card::before {
+  content: '';
+  position: absolute; top: 0; left: 0; right: 0; height: 3px;
+  background: var(--grad); border-radius: 20px 20px 0 0;
+  opacity: 0; transition: opacity 0.3s;
+}
+.svc-card:hover::before { opacity: 1; }
+.svc-glow {
+  position: absolute; top: -40px; right: -40px;
+  width: 160px; height: 160px; border-radius: 50%;
+  background: radial-gradient(circle, rgba(176,64,255,0.12) 0%, transparent 70%);
+  pointer-events: none;
+}
+.svc-icon {
+  width: 56px; height: 56px; border-radius: 14px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 24px; margin-bottom: 20px;
+}
+.ic1 { background: linear-gradient(135deg, rgba(123,47,190,0.3), rgba(91,33,182,0.3)); }
+.ic2 { background: linear-gradient(135deg, rgba(194,24,91,0.3), rgba(176,64,255,0.3)); }
+.ic3 { background: linear-gradient(135deg, rgba(255,112,67,0.3), rgba(194,24,91,0.3)); }
+.svc-card h3 { font-family: 'Syne', sans-serif; font-size: 20px; font-weight: 700; margin-bottom: 12px; }
+.svc-card p { font-size: 14px; line-height: 1.7; color: var(--muted); margin-bottom: 24px; }
+.svc-link {
+  display: inline-flex; align-items: center; gap: 6px;
+  font-size: 13px; font-weight: 600; color: #D580FF;
+  text-decoration: none; letter-spacing: 0.02em;
+  transition: gap 0.2s;
+}
+.svc-card:hover .svc-link { gap: 10px; }
+
+/* ── EXEMPLOS ── */
+.examples {
+  padding: 100px 60px;
+  background: rgba(255,255,255,0.02);
+  position: relative; z-index: 1;
+}
+.examples-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px;
+  margin-top: 60px;
+}
+.ex-card {
+  border-radius: 16px; overflow: hidden;
+  border: 1px solid var(--border);
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+.ex-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 24px 60px rgba(123,47,190,0.25);
+}
+.ex-browser {
+  background: #1A1A3E;
+  padding: 10px 14px;
+  display: flex; align-items: center; gap: 6px;
+  border-bottom: 1px solid var(--border);
+}
+.ex-dot { width: 9px; height: 9px; border-radius: 50%; }
+.ex-bar {
+  flex: 1; height: 18px; background: rgba(255,255,255,0.07);
+  border-radius: 4px; margin-left: 8px;
+  display: flex; align-items: center; padding: 0 8px;
+  font-size: 8px; color: rgba(255,255,255,0.3);
+}
+
+/* Mock Saúde */
+.mock-saude { background: #0F0F28; }
+.ms-hero { background: linear-gradient(160deg, #0D1B3E 0%, #162952 100%); padding: 20px 16px; text-align: center; }
+.ms-avatar { width: 50px; height: 50px; border-radius: 50%; background: linear-gradient(135deg, #4ECDC4, #44A3C5); border: 2px solid rgba(255,255,255,0.2); margin: 0 auto 8px; }
+.ms-name { font-family: 'Syne', sans-serif; font-size: 11px; font-weight: 700; margin-bottom: 2px; }
+.ms-spec { font-size: 8px; color: rgba(255,255,255,0.5); letter-spacing: 0.1em; }
+.ms-body { padding: 12px; }
+.ms-btn { display: block; padding: 8px; border-radius: 20px; font-size: 8px; text-align: center; margin-bottom: 6px; font-weight: 600; }
+.ms-b1 { background: linear-gradient(135deg, #0D2137, #1a3a5c); color: #fff; }
+.ms-b2 { border: 1px solid rgba(78,205,196,0.4); color: #4ECDC4; background: transparent; }
+.ms-b3 { background: rgba(255,255,255,0.05); color: rgba(255,255,255,0.5); }
+.ms-chips { display: flex; gap: 4px; margin-top: 8px; }
+.ms-chip { flex: 1; background: rgba(78,205,196,0.1); border-radius: 6px; padding: 6px 4px; font-size: 7px; color: #4ECDC4; text-align: center; }
+
+/* Mock Pet */
+.mock-pet { background: #1A0D00; }
+.mp-hero { background: linear-gradient(160deg, #7C3A00 0%, #B85000 100%); padding: 20px 16px; text-align: center; position: relative; overflow: hidden; }
+.mp-logo { width: 44px; height: 44px; border-radius: 10px; background: rgba(255,255,255,0.15); margin: 0 auto 8px; display: flex; align-items: center; justify-content: center; font-size: 20px; }
+.mp-name { font-family: 'Syne', sans-serif; font-size: 11px; font-weight: 700; }
+.mp-sub { font-size: 8px; color: rgba(255,255,255,0.7); }
+.mp-body { padding: 12px; }
+.mp-btn { display: block; padding: 8px; border-radius: 20px; font-size: 8px; text-align: center; margin-bottom: 6px; font-weight: 600; }
+.mp-b1 { background: linear-gradient(135deg, #FF6B35, #FF9561); color: #fff; }
+.mp-b2 { border: 1px solid rgba(255,107,53,0.4); color: #FF9561; background: transparent; }
+.mp-tags { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 8px; }
+.mp-tag { background: rgba(255,107,53,0.15); color: #FF9561; border-radius: 20px; padding: 3px 8px; font-size: 7px; }
+.mp-stars { text-align: center; padding: 8px 0 4px; font-size: 9px; color: #FFB800; }
+
+/* Mock Brandbook */
+.mock-brand { background: #0D0820; }
+.mb-hero { background: linear-gradient(135deg, #1E0D4A 0%, #2D1B69 100%); padding: 18px 16px; }
+.mb-row { display: flex; align-items: center; gap: 10px; margin-bottom: 14px; }
+.mb-mark { width: 38px; height: 38px; border-radius: 10px; background: var(--grad); display: flex; align-items: center; justify-content: center; font-size: 16px; font-weight: 800; font-family: 'Syne',sans-serif; }
+.mb-brandname { font-family: 'Syne', sans-serif; font-size: 12px; font-weight: 700; }
+.mb-tagline { font-size: 8px; color: rgba(255,255,255,0.4); letter-spacing: 0.1em; }
+.mb-swatches { display: flex; gap: 3px; }
+.mb-sw { flex: 1; height: 22px; border-radius: 4px; }
+.mb-body { padding: 12px 14px; }
+.mb-label { font-size: 7px; color: rgba(255,255,255,0.3); letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 4px; margin-top: 10px; }
+.mb-font { font-family: 'Syne', sans-serif; font-size: 16px; font-weight: 800; background: var(--grad); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+.mb-font-body { font-size: 9px; color: rgba(255,255,255,0.35); line-height: 1.5; }
+
+.ex-info { padding: 14px 0 4px; }
+.ex-name { font-family: 'Syne', sans-serif; font-size: 13px; font-weight: 700; }
+.ex-type { font-size: 11px; color: var(--muted); margin-top: 3px; }
+
+/* ── PROCESSO ── */
+.process {
+  padding: 100px 60px;
+  position: relative; z-index: 1;
+}
+.process-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; margin-top: 60px;
+  position: relative;
+}
+.process-grid::before {
+  content: '';
+  position: absolute; top: 36px; left: 15%; right: 15%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(176,64,255,0.4), rgba(224,64,160,0.4), transparent);
+}
+.proc-step { text-align: center; position: relative; }
+.proc-num {
+  width: 72px; height: 72px; border-radius: 50%;
+  background: var(--grad);
+  display: flex; align-items: center; justify-content: center;
+  margin: 0 auto 24px;
+  font-family: 'Syne', sans-serif; font-size: 26px; font-weight: 800;
+  box-shadow: 0 8px 28px rgba(123,47,190,0.45);
+  position: relative; z-index: 1;
+}
+.proc-step h4 { font-family: 'Syne', sans-serif; font-size: 19px; font-weight: 700; margin-bottom: 12px; }
+.proc-step p { font-size: 14px; color: var(--muted); line-height: 1.7; max-width: 260px; margin: 0 auto; }
+
+/* ── CTA ── */
+.cta-section {
+  padding: 120px 60px;
+  text-align: center;
+  position: relative; z-index: 1; overflow: hidden;
+}
+.cta-bg-glow {
+  position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+  width: 700px; height: 400px; border-radius: 50%;
+  background: radial-gradient(ellipse, rgba(123,47,190,0.2) 0%, transparent 70%);
+  pointer-events: none;
+}
+.cta-section h2 {
+  font-family: 'Syne', sans-serif;
+  font-size: clamp(32px, 5vw, 58px); font-weight: 800; line-height: 1.1;
+  margin-bottom: 20px;
+}
+.cta-section h2 span { background: var(--grad); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+.cta-section p { font-size: 16px; color: var(--muted); max-width: 460px; margin: 0 auto 48px; line-height: 1.7; }
+.cta-big {
+  display: inline-flex; align-items: center; gap: 14px;
+  background: var(--grad);
+  color: #fff; padding: 20px 48px; border-radius: 50px;
+  font-size: 16px; font-weight: 700; text-decoration: none; letter-spacing: 0.01em;
+  box-shadow: 0 12px 40px rgba(123,47,190,0.5);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+.cta-big:hover { transform: translateY(-3px); box-shadow: 0 20px 56px rgba(123,47,190,0.65); }
+.cta-note { margin-top: 20px; font-size: 12px; color: rgba(255,255,255,0.25); letter-spacing: 0.08em; }
+
+/* ── FOOTER ── */
+footer {
+  padding: 32px 60px;
+  border-top: 1px solid var(--border);
+  display: flex; align-items: center; justify-content: space-between;
+  flex-wrap: wrap; gap: 16px;
+  position: relative; z-index: 1;
+}
+.footer-logo { font-family: 'Syne', sans-serif; font-size: 17px; font-weight: 800; background: var(--grad); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+footer p { font-size: 12px; color: rgba(255,255,255,0.2); }
+
+/* ── ANIM ENTRANCE ── */
+.reveal {
+  opacity: 0; transform: translateY(32px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+.reveal.visible { opacity: 1; transform: translateY(0); }
+
+/* ── RESPONSIVE ── */
+@media (max-width: 900px) {
+  nav { padding: 18px 24px; }
+  .nav-links { display: none; }
+  .hero { grid-template-columns: 1fr; padding: 100px 24px 60px; }
+  .hero-right { height: 280px; }
+  .scene { transform: scale(0.75); transform-origin: top center; }
+  .services, .examples, .process, .cta-section { padding: 70px 24px; }
+  .services-grid, .examples-grid, .process-grid { grid-template-columns: 1fr; }
+  .process-grid::before { display: none; }
+  footer { padding: 24px; flex-direction: column; text-align: center; }
+}
+</style>
+</head>
+<body>
+
+<!-- PARTICLES -->
+<div class="particles" id="particles"></div>
+
+<!-- NAV -->
+<nav>
+  <div class="logo">Ilustre Juninho</div>
+  <div class="nav-links">
+    <a href="#servicos">Serviços</a>
+    <a href="#exemplos">Exemplos</a>
+    <a href="#processo">Como funciona</a>
+  </div>
+  <a href="https://wa.me/5511987636986?text=Olá!%20Vi%20seu%20portfólio%20e%20gostaria%20de%20saber%20mais." target="_blank" class="nav-btn">Falar agora</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-left">
+    <div class="hero-badge">Presença Digital Profissional</div>
+    <h1>Sua marca<br>no digital com<br><span>identidade real.</span></h1>
+    <p>Criamos páginas, links de bio e identidade visual que transformam seu perfil numa vitrine profissional — do zero, rápido e personalizado pra você.</p>
+    <div class="hero-btns">
+      <a href="https://wa.me/5511987636986?text=Olá!%20Vi%20seu%20portfólio%20e%20gostaria%20de%20saber%20mais." target="_blank" class="btn-grad">Começar agora</a>
+      <a href="#exemplos" class="btn-outline">Ver exemplos</a>
+    </div>
+  </div>
+
+  <div class="hero-right">
+    <div class="scene">
+      <div class="scene-glow"></div>
+
+      <!-- Stars -->
+      <div class="star" style="width:4px;height:4px;top:20px;left:40px;animation-duration:2.1s;animation-delay:0.3s;"></div>
+      <div class="star" style="width:3px;height:3px;top:60px;right:30px;animation-duration:1.8s;animation-delay:0.9s;"></div>
+      <div class="star" style="width:5px;height:5px;bottom:80px;left:20px;animation-duration:2.6s;animation-delay:0.5s;"></div>
+      <div class="star" style="width:3px;height:3px;bottom:40px;right:60px;animation-duration:1.5s;animation-delay:1.2s;"></div>
+
+      <div class="deco-plant">🌿</div>
+
+      <div class="float-card c1">
+        <div class="fc-num">3</div>
+        <div class="fc-label">entregas em dias</div>
+      </div>
+
+      <div class="phone-mockup">
+        <div class="phone-notch"></div>
+        <div class="phone-header">
+          <div class="phone-avatar">✦</div>
+          <div class="phone-name">Seu Nome Aqui</div>
+          <div class="phone-sub">Sua especialidade</div>
+        </div>
+        <div class="phone-body">
+          <div class="phone-btn">📅 Agendamento</div>
+          <div class="phone-btn ghost">📍 Localização</div>
+          <div class="phone-btn light">Instagram</div>
+        </div>
+      </div>
+
+      <div class="float-card c2">
+        <div class="fc-num">100%</div>
+        <div class="fc-label">personalizado</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVIÇOS -->
+<section class="services" id="servicos">
+  <div class="section-head reveal">
+    <div class="section-chip">O que fazemos</div>
+    <h2>Três soluções.<br><span>Uma presença coesa.</span></h2>
+    <p>Cada entrega foi pensada pra trabalhar junto. Você pode contratar uma ou as três.</p>
+  </div>
+  <div class="services-grid">
+    <div class="svc-card reveal">
+      <div class="svc-glow"></div>
+      <div class="svc-icon ic1">🌐</div>
+      <h3>Home Page</h3>
+      <p>Uma página profissional com sua história, serviços e um caminho claro pro cliente te encontrar — sem domínio caro ou plataforma complicada.</p>
+      <a href="https://wa.me/5511987636986" target="_blank" class="svc-link">Saiba mais →</a>
+    </div>
+    <div class="svc-card reveal">
+      <div class="svc-glow"></div>
+      <div class="svc-icon ic2">🔗</div>
+      <h3>Link da Bio</h3>
+      <p>Transforma o único link do seu Instagram em um hub profissional com botões, WhatsApp, localização e tudo que o cliente precisa pra te chamar.</p>
+      <a href="https://wa.me/5511987636986" target="_blank" class="svc-link">Saiba mais →</a>
+    </div>
+    <div class="svc-card reveal">
+      <div class="svc-glow"></div>
+      <div class="svc-icon ic3">🎨</div>
+      <h3>Brandbook</h3>
+      <p>Seu guia de identidade visual: cores, tipografia, logo e tom de voz — tudo documentado pra sua marca ser reconhecida em qualquer canal.</p>
+      <a href="https://wa.me/5511987636986" target="_blank" class="svc-link">Saiba mais →</a>
+    </div>
+  </div>
+</section>
+
+<!-- EXEMPLOS -->
+<section class="examples" id="exemplos">
+  <div class="section-head reveal">
+    <div class="section-chip">Modelos</div>
+    <h2>Como pode ficar<br><span>pra cada perfil.</span></h2>
+    <p>Cada entrega é única. Veja como adaptamos o estilo à identidade de cada cliente.</p>
+  </div>
+  <div class="examples-grid">
+
+    <!-- Saúde -->
+    <div class="reveal">
+      <div class="ex-card">
+        <div class="ex-browser">
+          <div class="ex-dot" style="background:#FF5F57"></div>
+          <div class="ex-dot" style="background:#FEBC2E"></div>
+          <div class="ex-dot" style="background:#28C840"></div>
+          <div class="ex-bar">dranathalia.com.br</div>
+        </div>
+        <div class="mock-saude">
+          <div class="ms-hero">
+            <div class="ms-avatar"></div>
+            <div class="ms-name">Dra. Nathália Costa</div>
+            <div class="ms-spec">CARDIOLOGISTA · CRM 12.345</div>
+          </div>
+          <div class="ms-body">
+            <div class="ms-btn ms-b1">📅 Agendar consulta pelo WhatsApp</div>
+            <div class="ms-btn ms-b2">📍 Endereço e como chegar</div>
+            <div class="ms-btn ms-b3">Ver perfil no Doctoralia</div>
+            <div class="ms-chips">
+              <div class="ms-chip">❤️ Consultas</div>
+              <div class="ms-chip">📋 Exames</div>
+              <div class="ms-chip">🏥 Convênios</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="ex-info">
+        <div class="ex-name">Área da Saúde</div>
+        <div class="ex-type">Link da Bio + Home Page</div>
+      </div>
+    </div>
+
+    <!-- Pet -->
+    <div class="reveal">
+      <div class="ex-card">
+        <div class="ex-browser">
+          <div class="ex-dot" style="background:#FF5F57"></div>
+          <div class="ex-dot" style="background:#FEBC2E"></div>
+          <div class="ex-dot" style="background:#28C840"></div>
+          <div class="ex-bar">petshopamigofiel.com.br</div>
+        </div>
+        <div class="mock-pet">
+          <div class="mp-hero">
+            <div class="mp-logo">🐾</div>
+            <div class="mp-name">Petshop Amigo Fiel</div>
+            <div class="mp-sub">Banho · Tosa · Vet · Produtos</div>
+          </div>
+          <div class="mp-body">
+            <div class="mp-btn mp-b1">🛁 Agendar Banho & Tosa</div>
+            <div class="mp-btn mp-b2">🛒 Cardápio de serviços</div>
+            <div class="mp-tags">
+              <div class="mp-tag">🐶 Cães</div>
+              <div class="mp-tag">🐱 Gatos</div>
+              <div class="mp-tag">💊 Vet</div>
+              <div class="mp-tag">🛍️ Loja</div>
+            </div>
+            <div class="mp-stars">★★★★★ 4.9 · +230 avaliações no Google</div>
+          </div>
+        </div>
+      </div>
+      <div class="ex-info">
+        <div class="ex-name">Pet & Serviços Locais</div>
+        <div class="ex-type">Link da Bio + Home Page</div>
+      </div>
+    </div>
+
+    <!-- Brandbook -->
+    <div class="reveal">
+      <div class="ex-card">
+        <div class="ex-browser">
+          <div class="ex-dot" style="background:#FF5F57"></div>
+          <div class="ex-dot" style="background:#FEBC2E"></div>
+          <div class="ex-dot" style="background:#28C840"></div>
+          <div class="ex-bar">brandbook · Consultora Paula</div>
+        </div>
+        <div class="mock-brand">
+          <div class="mb-hero">
+            <div class="mb-row">
+              <div class="mb-mark">P</div>
+              <div>
+                <div class="mb-brandname">Paula Mendes</div>
+                <div class="mb-tagline">CONSULTORA DE IMAGEM</div>
+              </div>
+            </div>
+            <div style="font-size:7px;color:rgba(255,255,255,0.3);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:6px;">Paleta de Cores</div>
+            <div class="mb-swatches">
+              <div class="mb-sw" style="background:#2D1B69"></div>
+              <div class="mb-sw" style="background:#8B5CF6"></div>
+              <div class="mb-sw" style="background:#F5C6EA"></div>
+              <div class="mb-sw" style="background:#FFF5E4"></div>
+            </div>
+          </div>
+          <div class="mb-body">
+            <div class="mb-label">Tipografia Principal</div>
+            <div class="mb-font">Syne Display</div>
+            <div class="mb-label">Tipografia de Apoio</div>
+            <div class="mb-font-body">Inter — textos, legendas e descrições. Limpa e legível em qualquer tamanho.</div>
+          </div>
+        </div>
+      </div>
+      <div class="ex-info">
+        <div class="ex-name">Profissionais Liberais</div>
+        <div class="ex-type">Brandbook Completo</div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- PROCESSO -->
+<section class="process" id="processo">
+  <div class="section-head reveal">
+    <div class="section-chip">Como funciona</div>
+    <h2>Simples do início<br><span>ao fim.</span></h2>
+  </div>
+  <div class="process-grid">
+    <div class="proc-step reveal">
+      <div class="proc-num">1</div>
+      <h4>Conversa</h4>
+      <p>Você me conta sobre o negócio, o que faz, pra quem e o estilo que gosta. Sem formulários longos.</p>
+    </div>
+    <div class="proc-step reveal">
+      <div class="proc-num">2</div>
+      <h4>Criação</h4>
+      <p>Desenvolvemos a página, o link e a identidade com a sua cara — copy, cores, layout e todos os detalhes.</p>
+    </div>
+    <div class="proc-step reveal">
+      <div class="proc-num">3</div>
+      <h4>Entrega</h4>
+      <p>Você recebe tudo pronto pra publicar, com ajustes incluídos até ficar exatamente como imaginou.</p>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section">
+  <div class="cta-bg-glow"></div>
+  <div class="section-chip reveal" style="display:inline-block;margin-bottom:20px;">Pronto pra começar?</div>
+  <h2 class="reveal">Sua presença digital<br><span>começa agora.</span></h2>
+  <p class="reveal">Manda uma mensagem e em poucos dias sua marca estará no ar com identidade profissional.</p>
+  <a href="https://wa.me/5511987636986?text=Olá!%20Vi%20seu%20portfólio%20e%20gostaria%20de%20saber%20mais%20sobre%20os%20serviços." target="_blank" class="cta-big reveal">
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+    Falar pelo WhatsApp
+  </a>
+  <p class="cta-note">Respondo em até algumas horas · Sem compromisso</p>
+</section>
+
+<footer>
+  <div class="footer-logo">Ilustre Juninho</div>
+  <p>© 2026 · Soluções Digitais com identidade.</p>
+</footer>
+
+<script>
+// Particles
+const container = document.getElementById('particles');
+for (let i = 0; i < 28; i++) {
+  const p = document.createElement('div');
+  p.className = 'particle';
+  const size = Math.random() * 4 + 2;
+  p.style.cssText = `
+    width:${size}px; height:${size}px;
+    left:${Math.random()*100}%;
+    bottom:${Math.random()*20}%;
+    animation-duration:${Math.random()*10+8}s;
+    animation-delay:${Math.random()*8}s;
+    background: hsl(${260 + Math.random()*60},80%,70%);
+  `;
+  container.appendChild(p);
+}
+
+// Reveal on scroll
+const obs = new IntersectionObserver((entries) => {
+  entries.forEach((e, i) => {
+    if (e.isIntersecting) {
+      setTimeout(() => e.target.classList.add('visible'), i * 80);
+    }
+  });
+}, { threshold: 0.12 });
+document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+</script>
+</body>
+</html>
